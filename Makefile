@@ -14,28 +14,28 @@ CC = cc
 
 CFLAGS = -Wall -Wextra -Werror -I. -Ilibft/includes
 
-LIBFT = libft/lib/libft.a
-
 LIBFLAGS = -lft -Llibft/lib
 
-$(NAME): $(OBJS) $(LIBFT)
-	$(CC) $(CFLAGS) -o $@ $(OBJS) $(LIBFLAGS)
+$(NAME): $(OBJS)
+	@ echo " \033[33mCompiling obj parser\033[m"
+	@ $(CC) $(CFLAGS) -o $@ $(OBJS) $(LIBFLAGS)
+	@ echo " \033[1;32m Obj parser binary compiled\033[m"
 
 $(BUILD_DIR)%.o: $(SOURCES_DIR)%.c
-	mkdir -p $(BUILD_DIR)
-	$(CC) $(CFLAGS) -c $< -o $@
-
-$(LIBFT):
-	make -j -C libft
+	@ mkdir -p $(BUILD_DIR)
+	@ $(CC) $(CFLAGS) -c $< -o $@
 
 all: $(NAME)
 
 clean:
-	rm -f $(OBJS)
-	rmdir $(BUILD_DIR)
+	@ echo " \033[33mCleaning\033[m"
+	@ rm -f $(OBJS)
+	@ rm -df $(BUILD_DIR)
+	@ echo " \033[32m Obj parser build files cleaned\033[m"
 
 fclean: clean
-	rm -f $(NAME)
+	@ rm -f $(NAME)
+	@ echo " \033[32m Obj parser binary cleaned\033[m"
 
 re: fclean all
 

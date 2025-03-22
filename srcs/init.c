@@ -34,9 +34,13 @@ static void	count_elements(char *filename, int count[4], t_mesh *mesh)
 }
 static void	set_to_null(t_mesh *mesh)
 {
+	mesh->n_vertices = 0;
 	mesh->vertices = NULL;
+	mesh->n_normals = 0;
 	mesh->normals = NULL;
+	mesh->n_uvs = 0;
 	mesh->uvs = NULL;
+	mesh->n_faces = 0;
 	mesh->faces = NULL;
 }
 

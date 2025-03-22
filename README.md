@@ -17,4 +17,6 @@ So far, the parser only recognizes the following elements :
 ### Usage
 To compile the program, simply type `make` in the repository.
 To use the program, pass the file path of the .obj file as an argument like so :
-```./obj_parser myfile.obj```
+```
+./obj_parser myfile.obj
+```
