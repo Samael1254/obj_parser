@@ -25,6 +25,23 @@ t_vector3d	parse_vertex(char *line, int line_nb, t_mesh *mesh)
 	return (new_vertex);
 }
 
+t_vector2d	parse_uv(char *line, int line_nb, t_mesh *mesh)
+{
+	t_vector2d	new_vertex;
+	char		**line_data;
+
+	line_data = ft_split(line, ' ');
+	if (ft_strtab_size(line_data) != 3)
+	{
+		ft_free_strtab(line_data);
+		error("uv", "wrong number of parameters (must be 3)", line_nb, mesh);
+	}
+	new_vertex.x = ft_atod(line_data[1]);
+	new_vertex.y = ft_atod(line_data[2]);
+	ft_free_strtab(line_data);
+	return (new_vertex);
+}
+
 static t_vertex	parse_face_vertex(char *vertex_data)
 {
 	t_vertex	new_vertex;
@@ -65,6 +82,11 @@ t_vertex	*parse_face(char *line, int line_nb, t_mesh *mesh)
 		error("face", "this parser only handles triangle faces", line_nb, mesh);
 	}
 	new_face = malloc(3 * sizeof(t_vertex));
+	if (!new_face)
+	{
+		ft_free_strtab(line_data);
+		error("malloc failed", "parse_face", line_nb, mesh);
+	}
 	i = 0;
 	while (i < 3)
 	{
