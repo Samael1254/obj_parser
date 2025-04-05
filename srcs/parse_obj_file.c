@@ -12,7 +12,7 @@ static void	parse_line(char *line, int line_nb, int count[4], t_mesh *mesh)
 	if (is_element(line, "v"))
 		mesh->vertices[count[0]++] = parse_vertex(line, line_nb, mesh);
 	else if (is_element(line, "vn"))
-		mesh->normals[count[1]++] = parse_vertex(line, line_nb, mesh);
+		mesh->normals[count[1]++] = parse_normal(line, line_nb, mesh);
 	else if (is_element(line, "vt"))
 		mesh->uvs[count[2]++] = parse_uv(line, line_nb, mesh);
 	else if (is_element(line, "f"))

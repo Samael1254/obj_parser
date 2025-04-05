@@ -30,6 +30,7 @@ void			check_argument(int argc, char **argv);
 t_mesh			*parse_obj_file(char *filename);
 t_vertex		*parse_face(char *line, int line_nb, t_mesh *mesh);
 t_vector3d		parse_vertex(char *line, int line_nb, t_mesh *mesh);
+t_vector3d		parse_normal(char *line, int line_nb, t_mesh *mesh);
 t_vector2d		parse_uv(char *line, int line_nb, t_mesh *mesh);
 
 void			print_mesh(t_mesh *mesh);
