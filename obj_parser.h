@@ -11,13 +11,21 @@ typedef struct vertex
 	int			norm_id;
 }				t_vertex;
 
+typedef struct s_material
+{
+	t_vec3		ka;
+	t_vec3		kd;
+	t_vec3		ks;
+	double		specularity;
+}				t_material;
+
 typedef struct s_mesh
 {
-	t_vector3d	*vertices;
+	t_vec3		*vertices;
 	int			n_vertices;
-	t_vector3d	*normals;
+	t_vec3		*normals;
 	int			n_normals;
-	t_vector3d	*uvs;
+	t_vec3		*uvs;
 	int			n_uvs;
 	t_vertex	**faces;
 	int			n_faces;
@@ -29,7 +37,7 @@ void			check_argument(int argc, char **argv);
 
 void			parse_obj_file(char *filename, t_mesh *mesh);
 t_vertex		*parse_face(char *line, int line_nb, t_mesh *mesh);
-t_vector3d		parse_vertex(char *line, int line_nb, t_mesh *mesh);
+t_vec3			parse_vertex(char *line, int line_nb, t_mesh *mesh);
 
 void			print_mesh(t_mesh *mesh);
 

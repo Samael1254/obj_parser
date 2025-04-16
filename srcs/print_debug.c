@@ -2,7 +2,7 @@
 #include "obj_parser.h"
 #include <stdio.h>
 
-static void	print_vertex(t_vector3d vertex, char *type)
+static void	print_vertex(t_vec3 vertex, char *type)
 {
 	printf("%s %f %f %f\n", type, vertex.x, vertex.y, vertex.z);
 }

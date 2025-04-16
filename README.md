@@ -20,3 +20,7 @@ To use the program, pass the file path of the .obj file as an argument like so :
 ```
 ./obj_parser myfile.obj
 ```
+
+### Coming soon
+- Polygon triangulator
+- .mtl files parsing

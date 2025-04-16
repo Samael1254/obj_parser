@@ -63,11 +63,11 @@ void	init_mesh(char *filename, t_mesh *mesh)
 	ft_bzero(count, 4 * sizeof(int));
 	count_elements(filename, count, mesh);
 	mesh->n_vertices = count[0];
-	mesh->vertices = malloc(count[0] * sizeof(t_vector3d));
+	mesh->vertices = malloc(count[0] * sizeof(t_vec3));
 	mesh->n_normals = count[1];
-	mesh->normals = malloc(count[1] * sizeof(t_vector3d));
+	mesh->normals = malloc(count[1] * sizeof(t_vec3));
 	mesh->n_uvs = count[2];
-	mesh->uvs = malloc(count[2] * sizeof(t_vector3d));
+	mesh->uvs = malloc(count[2] * sizeof(t_vec3));
 	mesh->n_faces = count[3];
 	mesh->faces = malloc(count[3] * sizeof(t_vertex *));
 	if (!mesh->vertices || !mesh->normals || !mesh->uvs || !mesh->faces)
