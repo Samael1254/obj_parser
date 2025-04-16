@@ -6,6 +6,10 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
+bool	check_line_data(char **line_data)
+{
+}
+
 t_vector3d	parse_vertex(char *line, int line_nb, t_mesh *mesh)
 {
 	t_vector3d	new_vertex;
