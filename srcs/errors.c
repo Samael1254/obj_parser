@@ -2,12 +2,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void	exit_program(t_mesh *mesh, int status)
+void	free_mesh(t_mesh *mesh)
 {
 	int	i;
 
 	if (!mesh)
-		exit(status);
+		return ;
 	if (mesh->vertices)
 		free(mesh->vertices);
 	if (mesh->normals)
@@ -16,13 +16,20 @@ void	exit_program(t_mesh *mesh, int status)
 		free(mesh->uvs);
 	i = 0;
 	while (i < mesh->n_faces)
-		free(mesh->faces[i++]);
+		if (mesh->faces[i++])
+			free(mesh->faces[i - 1]);
 	if (mesh->faces)
 		free(mesh->faces);
+	free(mesh);
+}
+
+void	exit_program(t_mesh *mesh, int status)
+{
+	free_mesh(mesh);
 	exit(status);
 }
 
-void	error(char *type, char *msg, int line_nb, t_mesh *mesh)
+void	error(const char *type, const char *msg, int line_nb, t_mesh *mesh)
 {
 	printf("\e[31;1mError\e[0;1m: ");
 	if (type)
@@ -34,7 +41,7 @@ void	error(char *type, char *msg, int line_nb, t_mesh *mesh)
 	exit_program(mesh, EXIT_FAILURE);
 }
 
-void	warning(char *type, char *msg, int line_nb)
+void	warning(const char *type, const char *msg, int line_nb)
 {
 	printf("\e[33;1mWarning\e[0;1m: ");
 	if (type)
@@ -45,7 +52,7 @@ void	warning(char *type, char *msg, int line_nb)
 	printf("\n");
 }
 
-void	info(char *type, char *msg)
+void	info(const char *type, const char *msg)
 {
 	printf("\e[34;1mInfo\e[0;1m: ");
 	if (type)

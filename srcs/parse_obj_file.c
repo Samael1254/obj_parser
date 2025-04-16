@@ -12,21 +12,23 @@ static void	parse_line(char *line, int line_nb, int count[4], t_mesh *mesh)
 	if (is_element(line, "v"))
 		mesh->vertices[count[0]++] = parse_vertex(line, line_nb, mesh);
 	else if (is_element(line, "vn"))
-		mesh->normals[count[1]++] = parse_vertex(line, line_nb, mesh);
+		mesh->normals[count[1]++] = parse_normal(line, line_nb, mesh);
 	else if (is_element(line, "vt"))
-		mesh->uvs[count[2]++] = parse_vertex(line, line_nb, mesh);
+		mesh->uvs[count[2]++] = parse_uv(line, line_nb, mesh);
 	else if (is_element(line, "f"))
 		mesh->faces[count[3]++] = parse_face(line, line_nb, mesh);
 }
 
-void	parse_obj_file(char *filename, t_mesh *mesh)
+t_mesh	*parse_obj_file(char *filename)
 {
 	int		fd;
 	int		line_nb;
 	char	*line;
 	char	*newline;
 	int		count[4];
+	t_mesh	*mesh;
 
+	mesh = init_mesh(filename);
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
 		error("could not open file", filename, -1, mesh);
@@ -45,4 +47,5 @@ void	parse_obj_file(char *filename, t_mesh *mesh)
 		line_nb++;
 	}
 	close(fd);
+	return (mesh);
 }

@@ -18,7 +18,7 @@ static void	check_obj_filename(char *filename)
 void	check_argument(int argc, char **argv)
 {
 	if (argc < 2)
-		error("argument error", ".obj file name needed", -1, NULL);
+		error("argument error", "no .obj file name given", -1, NULL);
 	if (argc > 2)
 		error("argument error", "too many arguments, only one needed", -1,
 			NULL);

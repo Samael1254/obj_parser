@@ -1,14 +1,12 @@
 #include "obj_parser.h"
-#include <stdio.h>
 #include <stdlib.h>
 
 int	main(int argc, char **argv)
 {
-	t_mesh	mesh;
+	t_mesh	*mesh;
 
 	check_argument(argc, argv);
-	init_mesh(argv[1], &mesh);
-	parse_obj_file(argv[1], &mesh);
-	print_mesh(&mesh);
-	exit_program(NULL, EXIT_SUCCESS);
+	mesh = parse_obj_file(argv[1]);
+	print_mesh(mesh);
+	exit_program(mesh, EXIT_SUCCESS);
 }

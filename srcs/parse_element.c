@@ -6,21 +6,71 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
-t_vec3	parse_vertex(char *line, int line_nb, t_mesh *mesh)
+bool	check_line_data(char **line_data)
+{
+}
+
+t_vector3d	parse_vertex(char *line, int line_nb, t_mesh *mesh)
 {
 	t_vec3	new_vertex;
 	char		**line_data;
+	int			arg_count;
 
 	line_data = ft_split(line, ' ');
-	if (ft_strtab_size(line_data) != 4)
+	arg_count = ft_strtab_size(line_data) - 1;
+	if (arg_count < 3 || arg_count > 4)
 	{
 		ft_free_strtab(line_data);
-		error("vertex", "wrong number of parameters (must be 3)", line_nb,
+		error("v", "wrong number of parameters (must be 3 or 4)", line_nb,
 			mesh);
+	}
+	if (arg_count == 4)
+		warning("Unhandled parameter", "vertex weigth", line_nb);
+	new_vertex.x = ft_atod(line_data[1]);
+	new_vertex.y = ft_atod(line_data[2]);
+	new_vertex.z = ft_atod(line_data[3]);
+	ft_free_strtab(line_data);
+	return (new_vertex);
+}
+
+t_vector3d	parse_normal(char *line, int line_nb, t_mesh *mesh)
+{
+	t_vector3d	new_vertex;
+	char		**line_data;
+	int			arg_count;
+
+	line_data = ft_split(line, ' ');
+	arg_count = ft_strtab_size(line_data) - 1;
+	if (arg_count != 3)
+	{
+		ft_free_strtab(line_data);
+		error("vn", "wrong number of parameters (must be 3)", line_nb, mesh);
 	}
 	new_vertex.x = ft_atod(line_data[1]);
 	new_vertex.y = ft_atod(line_data[2]);
 	new_vertex.z = ft_atod(line_data[3]);
+	ft_free_strtab(line_data);
+	return (new_vertex);
+}
+
+t_vector2d	parse_uv(char *line, int line_nb, t_mesh *mesh)
+{
+	t_vector2d	new_vertex;
+	char		**line_data;
+	int			arg_count;
+
+	line_data = ft_split(line, ' ');
+	arg_count = ft_strtab_size(line_data) - 1;
+	if (arg_count < 1 || arg_count > 2)
+	{
+		ft_free_strtab(line_data);
+		error("vt", "wrong number of parameters (must be 1 or 2)", line_nb,
+			mesh);
+	}
+	new_vertex.x = ft_atod(line_data[1]);
+	new_vertex.y = 0;
+	if (arg_count == 2)
+		new_vertex.y = ft_atod(line_data[2]);
 	ft_free_strtab(line_data);
 	return (new_vertex);
 }
@@ -57,14 +107,24 @@ t_vertex	*parse_face(char *line, int line_nb, t_mesh *mesh)
 	t_vertex	*new_face;
 	char		**line_data;
 	int			i;
+	int			arg_count;
 
 	line_data = ft_split(line, ' ');
-	if (ft_strtab_size(line_data) != 4)
+	arg_count = ft_strtab_size(line_data) - 1;
+	if (arg_count < 3)
 	{
 		ft_free_strtab(line_data);
-		error("face", "this parser only handles triangle faces", line_nb, mesh);
+		error("face", "wrong number of parameters (must be 3)", line_nb, mesh);
 	}
+	if (arg_count == 4)
+		warning("more than 3 vertices in face",
+			"this parser only handles triangle faces", line_nb);
 	new_face = malloc(3 * sizeof(t_vertex));
+	if (!new_face)
+	{
+		ft_free_strtab(line_data);
+		error("malloc failed", "parse_face", line_nb, mesh);
+	}
 	i = 0;
 	while (i < 3)
 	{
