@@ -25,7 +25,7 @@ typedef struct s_mesh
 	int			n_vertices;
 	t_vec3		*normals;
 	int			n_normals;
-	t_vector2d	*uvs;
+	t_vec2		*uvs;
 	int			n_uvs;
 	t_vertex	**faces;
 	int			n_faces;
@@ -44,9 +44,9 @@ bool			is_float(char *str);
 
 t_mesh			*parse_obj_file(char *filename);
 t_vertex		*parse_face(char *line, int line_nb, t_mesh *mesh);
-t_vector3d		parse_vertex(char *line, int line_nb, t_mesh *mesh);
-t_vector3d		parse_normal(char *line, int line_nb, t_mesh *mesh);
-t_vector2d		parse_uv(char *line, int line_nb, t_mesh *mesh);
+t_vec3			parse_vertex(char *line, int line_nb, t_mesh *mesh);
+t_vec3			parse_normal(char *line, int line_nb, t_mesh *mesh);
+t_vec2			parse_uv(char *line, int line_nb, t_mesh *mesh);
 
 // PRINT
 

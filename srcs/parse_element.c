@@ -6,15 +6,15 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
-bool	check_line_data(char **line_data)
-{
-}
+// bool	check_line_data(char **line_data)
+// {
+// }
 
-t_vector3d	parse_vertex(char *line, int line_nb, t_mesh *mesh)
+t_vec3	parse_vertex(char *line, int line_nb, t_mesh *mesh)
 {
 	t_vec3	new_vertex;
-	char		**line_data;
-	int			arg_count;
+	char	**line_data;
+	int		arg_count;
 
 	line_data = ft_split(line, ' ');
 	arg_count = ft_strtab_size(line_data) - 1;
@@ -33,11 +33,11 @@ t_vector3d	parse_vertex(char *line, int line_nb, t_mesh *mesh)
 	return (new_vertex);
 }
 
-t_vector3d	parse_normal(char *line, int line_nb, t_mesh *mesh)
+t_vec3	parse_normal(char *line, int line_nb, t_mesh *mesh)
 {
-	t_vector3d	new_vertex;
-	char		**line_data;
-	int			arg_count;
+	t_vec3	new_vertex;
+	char	**line_data;
+	int		arg_count;
 
 	line_data = ft_split(line, ' ');
 	arg_count = ft_strtab_size(line_data) - 1;
@@ -53,11 +53,11 @@ t_vector3d	parse_normal(char *line, int line_nb, t_mesh *mesh)
 	return (new_vertex);
 }
 
-t_vector2d	parse_uv(char *line, int line_nb, t_mesh *mesh)
+t_vec2	parse_uv(char *line, int line_nb, t_mesh *mesh)
 {
-	t_vector2d	new_vertex;
-	char		**line_data;
-	int			arg_count;
+	t_vec2	new_vertex;
+	char	**line_data;
+	int		arg_count;
 
 	line_data = ft_split(line, ' ');
 	arg_count = ft_strtab_size(line_data) - 1;
