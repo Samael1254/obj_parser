@@ -17,6 +17,8 @@ typedef struct s_material
 	t_vec3		kd;
 	t_vec3		ks;
 	double		specularity;
+	char		*texture;
+	char		*bump;
 }				t_material;
 
 typedef struct s_mesh
@@ -36,17 +38,18 @@ void			check_argument(int argc, char **argv);
 
 // UTILS
 
-bool			is_element(char *line, const char *elem);
+bool			is_element(char *str, const char *elem);
 bool			is_int(char *str);
 bool			is_float(char *str);
+bool			is_vertex(char *str);
 
 // PARSING
 
 t_mesh			*parse_obj_file(char *filename);
-t_vertex		*parse_face(char *line, int line_nb, t_mesh *mesh);
-t_vec3			parse_vertex(char *line, int line_nb, t_mesh *mesh);
-t_vec3			parse_normal(char *line, int line_nb, t_mesh *mesh);
-t_vec2			parse_uv(char *line, int line_nb, t_mesh *mesh);
+t_vec3			parse_vertex(char **line_data, int line_nb, bool *failed);
+t_vec3			parse_normal(char **line_data, int line_nb, bool *failed);
+t_vec2			parse_uv(char **line_data, int line_nb, bool *failed);
+t_vertex		*parse_face(char **line_data, int line_nb, bool *failed);
 
 // PRINT
 
@@ -54,8 +57,8 @@ void			print_mesh(t_mesh *mesh);
 
 // OUTPUT AND EXIT
 
-void			error(const char *type, const char *msg, int line_nb,
-					t_mesh *mesh);
+void			free_mesh(t_mesh *mesh);
+void			error(const char *type, const char *msg, int line_nb);
 void			warning(const char *type, const char *msg, int line_nb);
 void			info(const char *type, const char *msg);
 void			exit_program(t_mesh *mesh, int status);

@@ -29,7 +29,7 @@ void	exit_program(t_mesh *mesh, int status)
 	exit(status);
 }
 
-void	error(const char *type, const char *msg, int line_nb, t_mesh *mesh)
+void	error(const char *type, const char *msg, int line_nb)
 {
 	printf("\e[31;1mError\e[0;1m: ");
 	if (type)
@@ -38,7 +38,6 @@ void	error(const char *type, const char *msg, int line_nb, t_mesh *mesh)
 	if (line_nb >= 0)
 		printf(" (line %d)", line_nb);
 	printf("\n");
-	exit_program(mesh, EXIT_FAILURE);
 }
 
 void	warning(const char *type, const char *msg, int line_nb)

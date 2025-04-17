@@ -2,14 +2,11 @@
 #include "ft_strings.h"
 #include <stdbool.h>
 
-bool	is_element(char *line, const char *elem)
+bool	is_element(char *str, const char *elem)
 {
-	int	keyword_len;
-
-	keyword_len = ft_strcspn(line, " ");
-	if (keyword_len == 0)
+	if (!str)
 		return (false);
-	return (ft_strncmp(line, elem, keyword_len) == 0);
+	return (ft_strcmp(str, elem) == 0);
 }
 
 bool	is_int(char *str)
@@ -52,6 +49,34 @@ bool	is_float(char *str)
 			period = true;
 		}
 		i++;
+	}
+	return (true);
+}
+
+bool	is_vertex(char *str)
+{
+	int	i;
+	int	n;
+
+	n = 0;
+	while (n < 3)
+	{
+		i = 0;
+		if (str[0] == '-' || str[0] == '+')
+			i++;
+		if (!str[i])
+			return (false);
+		while (str[i] && str[i] != '/')
+		{
+			if (!ft_isdigit(str[i]))
+				return (false);
+		}
+		if (!str[i])
+			return (true);
+		if (n == 2)
+			return (false);
+		str += i + 1;
+		n++;
 	}
 	return (true);
 }

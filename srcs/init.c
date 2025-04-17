@@ -7,14 +7,17 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-static void	count_elements(char *filename, t_mesh *mesh)
+static bool	count_elements(char *filename, t_mesh *mesh)
 {
 	int		fd;
 	char	*line;
 
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
-		error("could not open file", filename, -1, mesh);
+	{
+		error("could not open file", filename, -1);
+		return (false);
+	}
 	while (true)
 	{
 		line = get_next_line(fd);
@@ -31,6 +34,7 @@ static void	count_elements(char *filename, t_mesh *mesh)
 		free(line);
 	}
 	close(fd);
+	return (true);
 }
 
 t_mesh	*init_mesh(char *filename)
@@ -39,13 +43,19 @@ t_mesh	*init_mesh(char *filename)
 
 	mesh = ft_calloc(1, sizeof(t_mesh));
 	if (!mesh)
-		error("malloc failed", "in init_mesh", -1, mesh);
-	count_elements(filename, mesh);
+		return (error("malloc failed", "in init_mesh", -1), NULL);
+	if (!count_elements(filename, mesh))
+		return (free(mesh), NULL);
+	mesh->vertices = NULL;
+	mesh->normals = NULL;
+	mesh->uvs = NULL;
+	mesh->faces = NULL;
 	mesh->vertices = malloc(mesh->n_vertices * sizeof(t_vec3));
 	mesh->normals = malloc(mesh->n_normals * sizeof(t_vec3));
 	mesh->uvs = malloc(mesh->n_uvs * sizeof(t_vec2));
 	mesh->faces = ft_calloc(mesh->n_faces, sizeof(t_vertex *));
 	if (!mesh->vertices || !mesh->normals || !mesh->uvs || !mesh->faces)
-		error("malloc failed", "in init_mesh", -1, mesh);
+		return (free_mesh(mesh), error("malloc failed", "in init_mesh", -1),
+			NULL);
 	return (mesh);
 }

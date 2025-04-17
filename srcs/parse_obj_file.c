@@ -7,16 +7,29 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-static void	parse_line(char *line, int line_nb, int count[4], t_mesh *mesh)
+static bool	parse_line(char *line, int line_nb, int count[4], t_mesh *mesh)
 {
-	if (is_element(line, "v"))
-		mesh->vertices[count[0]++] = parse_vertex(line, line_nb, mesh);
-	else if (is_element(line, "vn"))
-		mesh->normals[count[1]++] = parse_normal(line, line_nb, mesh);
-	else if (is_element(line, "vt"))
-		mesh->uvs[count[2]++] = parse_uv(line, line_nb, mesh);
-	else if (is_element(line, "f"))
-		mesh->faces[count[3]++] = parse_face(line, line_nb, mesh);
+	bool	failed;
+	char	**line_data;
+
+	failed = false;
+	line_data = ft_split(line, ' ');
+	if (!line_data)
+	{
+		error("malloc failed", "in parse_line", -1);
+		return (true);
+	}
+	if (is_element(line_data[0], "v"))
+		mesh->vertices[count[0]++] = parse_vertex(line_data, line_nb, &failed);
+	else if (is_element(line_data[0], "vn"))
+		mesh->normals[count[1]++] = parse_normal(line_data, line_nb, &failed);
+	else if (is_element(line_data[0], "vt"))
+		mesh->uvs[count[2]++] = parse_uv(line_data, line_nb, &failed);
+	else if (is_element(line_data[0], "f"))
+		mesh->faces[count[3]++] = parse_face(line_data, line_nb, &failed);
+	if (failed)
+		return (true);
+	return (false);
 }
 
 t_mesh	*parse_obj_file(char *filename)
@@ -31,7 +44,8 @@ t_mesh	*parse_obj_file(char *filename)
 	mesh = init_mesh(filename);
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
-		error("could not open file", filename, -1, mesh);
+		return (free_mesh(mesh), error("could not open file", filename, -1),
+			NULL);
 	line_nb = 1;
 	ft_bzero(count, 4 * sizeof(int));
 	while (true)
@@ -42,7 +56,12 @@ t_mesh	*parse_obj_file(char *filename)
 		newline = ft_strchr(line, '\n');
 		if (newline)
 			*newline = '\0';
-		parse_line(line, line_nb, count, mesh);
+		if (parse_line(line, line_nb, count, mesh))
+		{
+			free(line);
+			free(mesh);
+			return (NULL);
+		}
 		free(line);
 		line_nb++;
 	}
