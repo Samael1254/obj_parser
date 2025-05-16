@@ -1,11 +1,9 @@
-## OBJ file parser
-A simple parser for .obj files.
+## OBJ file parser library
+A simple C library to parse .obj files.
 
 ### Description and purpose
 .obj is a file format to store mesh data, in order to process or render meshes.
-This program is not useful on its own, it simply parses the .obj file into a mesh structure and prints the result on the standard output.
-The code is therefore meant to be used in other programs.
-The printing functions contained in the program can also be used to write an .obj file from mesh data, by either redirecting the output to a file or modifying the code to write the data on a file passed as parameter.
+This library provides functions to parse, load, print or save .obj files thanks to a common mesh structure.
 
 ### Features
 So far, the parser only recognizes the following elements :
@@ -16,13 +14,11 @@ So far, the parser only recognizes the following elements :
 All the other elements are ignored
 
 ### Usage
-To compile the program, simply type `make` in the repository.
-To use the program, pass the file path of the .obj file as an argument like so :
-```
-./obj_parser myfile.obj
-```
+To use the library, you can either build it from source with `make`, or download the precompiled archive.
+You then have to link it to your program when compiling with the `-lobjParser` flag.
+More information on how to use static libraries in your C programs [here](https://dev.to/iamkhalil42/all-you-need-to-know-about-c-static-libraries-1o0b).
 
-### TODO
+### FUTURE IMPROVEMENTS
 - Triangulate polygons
 - Parse .mtl files
 - Handle negative indices

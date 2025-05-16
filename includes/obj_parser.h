@@ -33,34 +33,22 @@ typedef struct s_mesh
 	int			n_faces;
 }				t_mesh;
 
-t_mesh			*init_mesh(char *filename);
-void			check_argument(int argc, char **argv);
-
-// UTILS
-
-bool			is_element(char *str, const char *elem);
-bool			is_int(char *str);
-bool			is_float(char *str);
-bool			is_vertex(char *str);
-
 // PARSING
 
-t_mesh			*parse_obj_file(char *filename);
-t_vec3			parse_vertex(char **line_data, int line_nb, bool *failed);
-t_vec3			parse_normal(char **line_data, int line_nb, bool *failed);
-t_vec2			parse_uv(char **line_data, int line_nb, bool *failed);
-t_vertex		*parse_face(char **line_data, int line_nb, bool *failed);
+t_mesh			*parse_obj_file(const char *filename);
 
 // PRINT
 
-void			print_mesh(t_mesh *mesh);
+void			print_mesh(t_mesh mesh);
+
+void			dprint_mesh(int fd, t_mesh mesh);
+
+int				save_obj_file(const char *filename, t_mesh mesh);
 
 // OUTPUT AND EXIT
 
 void			free_mesh(t_mesh *mesh);
-void			error(const char *type, const char *msg, int line_nb);
-void			warning(const char *type, const char *msg, int line_nb);
-void			info(const char *type, const char *msg);
-void			exit_program(t_mesh *mesh, int status);
+
+bool			is_obj_filename_valid(const char *filename);
 
 #endif

@@ -12,7 +12,7 @@ OBJS = $(addprefix $(BUILD_DIR), $(notdir $(SOURCES:.c=.o)))
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror -I./includes/ -I./libft/includes
+CFLAGS = -Wall -Wextra -Werror -I./srcs -I./libft/includes
 
 LIBFLAGS = -lft -Llibft/lib
 

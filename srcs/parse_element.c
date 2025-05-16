@@ -1,10 +1,11 @@
 #include "ft_algebra.h"
 #include "ft_conversion.h"
 #include "ft_strings.h"
-#include "obj_parser.h"
+#include "obj_parser_internal.h"
 #include <fcntl.h>
 #include <stdbool.h>
 #include <stdlib.h>
+#include <string.h>
 
 bool	is_line_valid(char **line_data, bool (*check)(char *), int min_params,
 		int max_params, int line_nb)
@@ -15,10 +16,8 @@ bool	is_line_valid(char **line_data, bool (*check)(char *), int min_params,
 	while (line_data[i])
 	{
 		if (!check(line_data[i]))
-		{
-			error("wrong parameter type", line_data[i], line_nb);
-			return (false);
-		}
+			return (error("wrong parameter type", line_data[i], line_nb),
+				false);
 		i++;
 	}
 	i -= 1;
@@ -85,15 +84,15 @@ static t_vertex	parse_face_vertex(char *vertex_data)
 
 	new_vertex.text_id = -1;
 	new_vertex.norm_id = -1;
-	nb_len = ft_strcspn(vertex_data, "/");
-	data_len = (int)ft_strlen(vertex_data);
+	nb_len = strcspn(vertex_data, "/");
+	data_len = (int)strlen(vertex_data);
 	vertex_data[nb_len] = '\0';
-	new_vertex.geo_id = ft_atoi(vertex_data);
+	new_vertex.geo_id = atoi(vertex_data);
 	if (nb_len == data_len)
 		return (new_vertex);
 	vertex_data += nb_len + 1;
-	nb_len = ft_strcspn(vertex_data, "/");
-	data_len = (int)ft_strlen(vertex_data);
+	nb_len = strcspn(vertex_data, "/");
+	data_len = (int)strlen(vertex_data);
 	vertex_data[nb_len] = '\0';
 	if (nb_len > 0)
 		new_vertex.text_id = ft_atoi(vertex_data);
