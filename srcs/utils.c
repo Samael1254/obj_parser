@@ -6,7 +6,7 @@ bool	is_element(const char *str, const char *elem)
 {
 	if (!str)
 		return (false);
-	return (strcmp(str, elem) == 0);
+	return (strncmp(str, elem, strlen(elem)) == 0);
 }
 
 bool	is_int(const char *str)

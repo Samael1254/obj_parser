@@ -4,7 +4,7 @@
 
 static void	check_argument_count(int argc)
 {
-	if (argc == 1)
+	if (argc == 2)
 		return ;
 	dprintf(2, "\e[31;1mError\e[0;1m: ");
 	if (argc < 2)
@@ -20,6 +20,8 @@ int	main(int argc, char **argv)
 
 	check_argument_count(argc);
 	mesh = parse_obj_file(argv[1]);
+	if (!mesh)
+		return (EXIT_FAILURE);
 	print_mesh(*mesh);
 	free_mesh(mesh);
 	return (EXIT_SUCCESS);

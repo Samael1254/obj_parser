@@ -33,6 +33,7 @@ clean:
 fclean: clean
 	@ rm -f $(NAME)
 	@ echo " \033[32m ObjParser test cleaned\033[m"
+	@ cd .. && make fclean -s
 
 re: fclean all
 

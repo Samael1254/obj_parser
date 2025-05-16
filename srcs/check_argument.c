@@ -7,6 +7,8 @@ bool	is_obj_filename_valid(const char *filename)
 {
 	const char	*extension;
 
+	if (strchr(filename, '/'))
+		filename = strrchr(filename, '/') + 1;
 	extension = strrchr(filename, '.');
 	if (!extension || strcmp(extension, ".obj") != 0)
 	{

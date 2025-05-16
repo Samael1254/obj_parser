@@ -30,7 +30,7 @@ static bool	count_elements(const char *filename, t_mesh *mesh)
 		free(line);
 	}
 	close(fd);
-	return (true);
+	return (false);
 }
 
 t_mesh	*init_mesh(const char *filename)
