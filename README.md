@@ -11,6 +11,7 @@ So far, the parser only recognizes the following elements :
 - vertex normals ("vn")
 - vertex texture coordinates ("vt")
 - Faces ("f"), only containing three vertices so far
+
 All the other elements are ignored
 
 ### Usage
@@ -18,7 +19,7 @@ To use the library, you can either build it from source with `make`, or download
 You then have to link it to your program when compiling with the `-lobjParser` flag.
 More information on how to use static libraries in your C programs [here](https://dev.to/iamkhalil42/all-you-need-to-know-about-c-static-libraries-1o0b).
 
-### FUTURE IMPROVEMENTS
+### Future improvements
 - Triangulate polygons
 - Parse .mtl files
 - Handle negative indices

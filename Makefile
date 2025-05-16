@@ -1,4 +1,4 @@
-NAME = lib/objParser.a
+NAME = lib/libobjParser.a
 
 SOURCES_DIR = srcs/
 BUILD_DIR = build/
@@ -12,14 +12,14 @@ OBJS = $(addprefix $(BUILD_DIR), $(notdir $(SOURCES:.c=.o)))
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror -I./srcs -I./libft/includes
+CFLAGS = -Wall -Wextra -Werror -I./srcs -I./include -I./libft/includes
 
 LIBFLAGS = -lft -Llibft/lib
 
 $(NAME): $(OBJS)
 	@ echo " \033[33mCompiling ObjParser library\033[m"
 	@ mkdir -p lib
-	@ ar crs $@ $(OBJECTS)
+	@ ar crs $@ $(OBJS)
 	@ echo " \033[1;32m ObjParser library compiled\033[m"
 
 $(BUILD_DIR)%.o: $(SOURCES_DIR)%.c

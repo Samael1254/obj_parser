@@ -1,3 +1,5 @@
 build/
 libft/
-obj_parser
+lib/
+/test/test.o
+/test/objParserTest

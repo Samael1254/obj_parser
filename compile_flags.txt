@@ -1,4 +1,5 @@
--I./includes
+-I./include
+-I./srcs
 -I./libft/includes
 -Wall
 -Wextra
