@@ -1,12 +1,10 @@
 #include "ft_strings.h"
 #include "get_next_line.h"
-#include "obj_parser.h"
 #include "obj_parser_internal.h"
 #include <fcntl.h>
 #include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
-#include <strings.h>
 #include <unistd.h>
 
 static bool	parse_line(char *line, int line_nb, int count[4], t_mesh *mesh)
@@ -17,7 +15,10 @@ static bool	parse_line(char *line, int line_nb, int count[4], t_mesh *mesh)
 	failed = false;
 	line_data = ft_split(line, ' ');
 	if (!line_data)
-		return (error("malloc failed", "in parse_line", -1), true);
+	{
+		error("malloc failed", "in parse_line", -1);
+		return (true);
+	}
 	if (is_element(line_data[0], "v"))
 		mesh->vertices[count[0]++] = parse_vertex(line_data, line_nb, &failed);
 	else if (is_element(line_data[0], "vn"))
@@ -31,6 +32,13 @@ static bool	parse_line(char *line, int line_nb, int count[4], t_mesh *mesh)
 	return (false);
 }
 
+/**
+ * @brief Parses a .obj file into a t_mesh structure
+ *
+ * @param filename: Name of the .obj file to parse
+ * @return On success, return a pointer to the created mesh. On failure,
+	return NULL.
+ */
 t_mesh	*parse_obj_file(const char *filename)
 {
 	int		fd;

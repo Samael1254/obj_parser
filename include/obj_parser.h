@@ -11,6 +11,11 @@ typedef struct vertex
 	int			norm_id;
 }				t_vertex;
 
+/**
+ * @typedef s_material
+ * @brief Struct containing .mtl material information
+ *
+ */
 typedef struct s_material
 {
 	t_vec3		ka;
@@ -21,6 +26,11 @@ typedef struct s_material
 	char		*bump;
 }				t_material;
 
+/**
+ * @typedef s_mesh
+ * @brief Struct containing .obj mesh information
+ *
+ */
 typedef struct s_mesh
 {
 	t_vec3		*vertices;
@@ -33,11 +43,7 @@ typedef struct s_mesh
 	int			n_faces;
 }				t_mesh;
 
-// PARSING
-
 t_mesh			*parse_obj_file(const char *filename);
-
-// PRINT
 
 void			print_mesh(t_mesh mesh);
 
@@ -45,7 +51,9 @@ void			dprint_mesh(int fd, t_mesh mesh);
 
 int				save_obj_file(const char *filename, t_mesh mesh);
 
-// OUTPUT AND EXIT
+void			dprint_mesh_info(int fd, t_mesh mesh);
+
+void			print_mesh_info(t_mesh mesh);
 
 void			free_mesh(t_mesh *mesh);
 

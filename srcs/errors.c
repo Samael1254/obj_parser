@@ -2,6 +2,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/**
+ * @brief Frees all the mesh information
+ *
+ * @param mesh: Pointer to the mesh to free
+ */
 void	free_mesh(t_mesh *mesh)
 {
 	int	i;

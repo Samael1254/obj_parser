@@ -3,8 +3,8 @@ NAME = lib/libobjParser.a
 SOURCES_DIR = srcs/
 BUILD_DIR = build/
 
-SOURCES = errors.c init.c check_argument.c parse_element.c \
-		  utils.c parse_obj_file.c print_debug.c
+SOURCES = errors.c init.c check_filename.c parse_element.c \
+		  utils.c parse_obj_file.c print_mesh.c
 
 SOURCES := $(addprefix $(SOURCES_DIR), $(SOURCES))
 
