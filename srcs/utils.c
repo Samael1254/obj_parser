@@ -1,15 +1,15 @@
-#include "ft_chars.h"
-#include "ft_strings.h"
+#include <ctype.h>
 #include <stdbool.h>
+#include <string.h>
 
-bool	is_element(char *str, const char *elem)
+bool	is_element(const char *str, const char *elem)
 {
 	if (!str)
 		return (false);
-	return (ft_strcmp(str, elem) == 0);
+	return (strncmp(str, elem, strlen(elem)) == 0);
 }
 
-bool	is_int(char *str)
+bool	is_int(const char *str)
 {
 	int	i;
 
@@ -20,14 +20,14 @@ bool	is_int(char *str)
 		return (false);
 	while (str[i])
 	{
-		if (!ft_isdigit(str[i]))
+		if (!isdigit(str[i]))
 			return (false);
 		i++;
 	}
 	return (true);
 }
 
-bool	is_float(char *str)
+bool	is_float(const char *str)
 {
 	int		i;
 	bool	period;
@@ -40,7 +40,7 @@ bool	is_float(char *str)
 		return (false);
 	while (str[i])
 	{
-		if (!ft_isdigit(str[i]) && str[i] != '.')
+		if (!isdigit(str[i]) && str[i] != '.')
 			return (false);
 		if (str[i] == '.')
 		{
@@ -53,7 +53,7 @@ bool	is_float(char *str)
 	return (true);
 }
 
-bool	is_vertex(char *str)
+bool	is_vertex(const char *str)
 {
 	int	i;
 	int	n;
@@ -67,10 +67,8 @@ bool	is_vertex(char *str)
 		if (!str[i])
 			return (false);
 		while (str[i] && str[i] != '/')
-		{
-			if (!ft_isdigit(str[i]))
+			if (!isdigit(str[i++]))
 				return (false);
-		}
 		if (!str[i])
 			return (true);
 		if (n == 2)

@@ -1,23 +1,19 @@
-#include "ft_memory.h"
 #include "get_next_line.h"
-#include "obj_parser.h"
+#include "obj_parser_internal.h"
 #include <fcntl.h>
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdlib.h>
 #include <unistd.h>
 
-static bool	count_elements(char *filename, t_mesh *mesh)
+static bool	count_elements(const char *filename, t_mesh *mesh)
 {
 	int		fd;
 	char	*line;
 
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
-	{
-		error("could not open file", filename, -1);
-		return (false);
-	}
+		return (error("could not open file", filename, -1), true);
 	while (true)
 	{
 		line = get_next_line(fd);
@@ -34,26 +30,22 @@ static bool	count_elements(char *filename, t_mesh *mesh)
 		free(line);
 	}
 	close(fd);
-	return (true);
+	return (false);
 }
 
-t_mesh	*init_mesh(char *filename)
+t_mesh	*init_mesh(const char *filename)
 {
 	t_mesh	*mesh;
 
-	mesh = ft_calloc(1, sizeof(t_mesh));
+	mesh = calloc(1, sizeof(t_mesh));
 	if (!mesh)
 		return (error("malloc failed", "in init_mesh", -1), NULL);
-	if (!count_elements(filename, mesh))
+	if (count_elements(filename, mesh))
 		return (free(mesh), NULL);
-	mesh->vertices = NULL;
-	mesh->normals = NULL;
-	mesh->uvs = NULL;
-	mesh->faces = NULL;
 	mesh->vertices = malloc(mesh->n_vertices * sizeof(t_vec3));
 	mesh->normals = malloc(mesh->n_normals * sizeof(t_vec3));
 	mesh->uvs = malloc(mesh->n_uvs * sizeof(t_vec2));
-	mesh->faces = ft_calloc(mesh->n_faces, sizeof(t_vertex *));
+	mesh->faces = calloc(mesh->n_faces, sizeof(t_vertex *));
 	if (!mesh->vertices || !mesh->normals || !mesh->uvs || !mesh->faces)
 		return (free_mesh(mesh), error("malloc failed", "in init_mesh", -1),
 			NULL);

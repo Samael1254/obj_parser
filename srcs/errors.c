@@ -1,7 +1,12 @@
-#include "obj_parser.h"
+#include "obj_parser_internal.h"
 #include <stdio.h>
 #include <stdlib.h>
 
+/**
+ * @brief Frees all the mesh information
+ *
+ * @param mesh: Pointer to the mesh to free
+ */
 void	free_mesh(t_mesh *mesh)
 {
 	int	i;
@@ -23,38 +28,32 @@ void	free_mesh(t_mesh *mesh)
 	free(mesh);
 }
 
-void	exit_program(t_mesh *mesh, int status)
-{
-	free_mesh(mesh);
-	exit(status);
-}
-
 void	error(const char *type, const char *msg, int line_nb)
 {
-	printf("\e[31;1mError\e[0;1m: ");
+	dprintf(2, "\e[31;1mError\e[0;1m: ");
 	if (type)
-		printf("%s\e[0m: ", type);
-	printf("%s", msg);
+		dprintf(2, "%s\e[0m: ", type);
+	dprintf(2, "%s", msg);
 	if (line_nb >= 0)
-		printf(" (line %d)", line_nb);
-	printf("\n");
+		dprintf(2, " (line %d)", line_nb);
+	dprintf(2, "\n");
 }
 
 void	warning(const char *type, const char *msg, int line_nb)
 {
-	printf("\e[33;1mWarning\e[0;1m: ");
+	dprintf(2, "\e[33;1mWarning\e[0;1m: ");
 	if (type)
-		printf("%s\e[0m: ", type);
-	printf("%s", msg);
+		dprintf(2, "%s\e[0m: ", type);
+	dprintf(2, "%s", msg);
 	if (line_nb >= 0)
-		printf(" (line %d)", line_nb);
-	printf("\n");
+		dprintf(2, " (line %d)", line_nb);
+	dprintf(2, "\n");
 }
 
 void	info(const char *type, const char *msg)
 {
-	printf("\e[34;1mInfo\e[0;1m: ");
+	dprintf(2, "\e[34;1mInfo\e[0;1m: ");
 	if (type)
-		printf("%s\e[0m: ", type);
-	printf("%s\n", msg);
+		dprintf(2, "%s\e[0m: ", type);
+	dprintf(2, "%s\n", msg);
 }
