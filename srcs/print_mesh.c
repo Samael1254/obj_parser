@@ -45,19 +45,19 @@ static void	print_face(int fd, const t_vertex *face)
 void	dprint_mesh(int fd, t_mesh mesh)
 {
 	for (int i = 0; i < mesh.n_vertices; i++)
-		print_vertex(fd, mesh.vertices[i++], "v");
+		print_vertex(fd, mesh.vertices[i], "v");
 	if (mesh.n_vertices > 0)
 		dprintf(fd, "\n");
 	for (int i = 0; i < mesh.n_normals; i++)
-		print_vertex(fd, mesh.normals[i++], "vn");
+		print_vertex(fd, mesh.normals[i], "vn");
 	if (mesh.n_normals > 0)
 		dprintf(fd, "\n");
 	for (int i = 0; i < mesh.n_uvs; i++)
-		print_uv(fd, mesh.uvs[i++], "vt");
+		print_uv(fd, mesh.uvs[i], "vt");
 	if (mesh.n_uvs > 0)
 		dprintf(fd, "\n");
 	for (int i = 0; i < mesh.n_faces; i++)
-		print_face(fd, mesh.faces[i++]);
+		print_face(fd, mesh.faces[i]);
 }
 
 /**
@@ -87,7 +87,7 @@ int	save_obj_file(const char *filename, t_mesh mesh)
 	obj_filename = ft_strjoin(filename, ".obj");
 	if (!filename)
 		return (-1);
-	fd = open(filename, O_WRONLY);
+	fd = open(obj_filename, O_WRONLY | O_CREAT, 00666);
 	if (fd == -1)
 		return (error("unable to open file for saving", obj_filename, -1),
 			free(obj_filename), -1);
@@ -105,11 +105,11 @@ int	save_obj_file(const char *filename, t_mesh mesh)
  */
 void	dprint_mesh_info(int fd, t_mesh mesh)
 {
-	dprintf(fd, "Mesh info: \n");
-	dprintf(fd, "Vertices count: %d\n", mesh.n_vertices);
+	dprintf(fd, "Mesh info:\n");
+	dprintf(fd, "Vertices count:       %d\n", mesh.n_vertices);
 	dprintf(fd, "Vertex normals count: %d\n", mesh.n_normals);
-	dprintf(fd, "Vertex uvs count: %d\n", mesh.n_uvs);
-	dprintf(fd, "Faces count: %d\n", mesh.n_faces);
+	dprintf(fd, "Vertex UVs count:     %d\n", mesh.n_uvs);
+	dprintf(fd, "Faces count:          %d\n", mesh.n_faces);
 }
 
 /**

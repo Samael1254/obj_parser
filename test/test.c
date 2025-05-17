@@ -23,6 +23,8 @@ int	main(int argc, char **argv)
 	if (!mesh)
 		return (EXIT_FAILURE);
 	print_mesh(*mesh);
+	save_obj_file("filetest", *mesh);
+	print_mesh_info(*mesh);
 	free_mesh(mesh);
 	return (EXIT_SUCCESS);
 }

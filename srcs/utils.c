@@ -1,12 +1,18 @@
 #include <ctype.h>
 #include <stdbool.h>
-#include <string.h>
 
 bool	is_element(const char *str, const char *elem)
 {
-	if (!str)
-		return (false);
-	return (strncmp(str, elem, strlen(elem)) == 0);
+	int	i;
+
+	i = 0;
+	while (str[i] && str[i] != ' ')
+	{
+		if (str[i] != elem[i])
+			return (false);
+		i++;
+	}
+	return (true);
 }
 
 bool	is_int(const char *str)

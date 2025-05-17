@@ -42,9 +42,13 @@ t_mesh	*init_mesh(const char *filename)
 		return (error("malloc failed", "in init_mesh", -1), NULL);
 	if (count_elements(filename, mesh))
 		return (free(mesh), NULL);
+	// if (mesh->n_vertices > 0)
 	mesh->vertices = malloc(mesh->n_vertices * sizeof(t_vec3));
+	// if (mesh->n_normals > 0)
 	mesh->normals = malloc(mesh->n_normals * sizeof(t_vec3));
+	// if (mesh->n_uvs > 0)
 	mesh->uvs = malloc(mesh->n_uvs * sizeof(t_vec2));
+	// if (mesh->n_faces > 0)
 	mesh->faces = calloc(mesh->n_faces, sizeof(t_vertex *));
 	if (!mesh->vertices || !mesh->normals || !mesh->uvs || !mesh->faces)
 		return (free_mesh(mesh), error("malloc failed", "in init_mesh", -1),
