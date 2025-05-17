@@ -1,4 +1,0 @@
-build/*
-lib/libft.a
-compile_flags.txt
-tests/test*
