@@ -14,9 +14,11 @@ CC = cc
 
 CFLAGS = -Wall -Wextra -Werror -I./srcs -I./include -I./libft/includes
 
+LIBFT = libft/lib/libft.a
+
 LIBFLAGS = -lft -Llibft/lib
 
-$(NAME): $(OBJS)
+$(NAME): $(OBJS) $(LIBFT)
 	@ echo " \033[33mCompiling ObjParser library\033[m"
 	@ mkdir -p lib
 	@ ar crs $@ $(OBJS)
@@ -25,6 +27,9 @@ $(NAME): $(OBJS)
 $(BUILD_DIR)%.o: $(SOURCES_DIR)%.c
 	@ mkdir -p $(BUILD_DIR)
 	@ $(CC) $(CFLAGS) -c $< -o $@
+
+$(LIBFT):
+	@ cd libft && make -s -j
 
 all: $(NAME)
 
