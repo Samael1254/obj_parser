@@ -22,7 +22,7 @@ $(NAME): $(OBJS) $(LIBFT)
 	@ echo " \033[33mCompiling ObjParser library\033[m"
 	@ mkdir -p lib
 	@ ar crs $@ $(OBJS)
-	@ echo " \033[1;32m ObjParser library compiled\033[m"
+	@ echo " \033[1;34m ObjParser library compiled\033[m"
 
 $(BUILD_DIR)%.o: $(SOURCES_DIR)%.c
 	@ mkdir -p $(BUILD_DIR)
@@ -37,12 +37,12 @@ clean:
 	@ echo " \033[33mCleaning\033[m"
 	@ rm -f $(OBJS)
 	@ rm -df $(BUILD_DIR)
-	@ echo " \033[32m ObjParser build files cleaned\033[m"
+	@ echo " \033[34m ObjParser build files cleaned\033[m"
 
 fclean: clean
 	@ rm -f $(NAME)
 	@ rm -df lib
-	@ echo " \033[32m ObjParser library cleaned\033[m"
+	@ echo " \033[34m ObjParser library cleaned\033[m"
 
 re: fclean all
 
